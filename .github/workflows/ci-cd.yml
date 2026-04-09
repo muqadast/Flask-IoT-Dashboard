@@ -3,9 +3,14 @@ name: IoT Dashboard DevSecOps Pipeline
 
 on:
   push:
-    branches: [ master, develop ]
+    branches:
+      - master
+      - develop
+      - feature/*
   pull_request:
-    branches: [ master, develop ]
+    branches:
+      - master
+      - develop
   workflow_dispatch:
 
 jobs:
