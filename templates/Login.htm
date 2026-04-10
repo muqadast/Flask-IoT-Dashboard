@@ -30,7 +30,8 @@
 					<img src="/static/images/img-01.png" alt="IMG">
 				</div>
 
-				<form action="" method="POST" class="login100-form validate-form">
+                              <!--
+  				<form action="" method="POST" class="login100-form validate-form">
 					<span class="login100-form-title">
 						Member Login
 					</span>
@@ -73,7 +74,23 @@
    						 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
 					</div>
-				</form>
+				</form> -->
+
+             
+                                <form method="POST" action="/login">
+
+                                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                     <br>
+                                    <input type="text" name="username" placeholder="Username" required>
+                                     <br><br>
+
+                                    <input type="password" name="password" placeholder="Password" required>
+                                     <br><br>
+ 
+                                      <button type="submit">Login</button>
+
+                                </form>
 			</div>
 		</div>
 	</div>

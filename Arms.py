@@ -1,4 +1,6 @@
-from flask import Flask, render_template, jsonify, redirect, request
+from flask import Flask, render_template, request, redirect, url_for, jsonify, abort
+from flask_login import current_user
+from flask_wtf.csrf import CSRFProtect
 import json, database, base64
 from random import choice
 from datetime import datetime
@@ -11,6 +13,10 @@ logged_in = {}
 api_loggers = {}
 mydb = database.db('aman', '0.0.0.0', 'hacker123', 'ARMS')
 
+app.config['SECRET_KEY'] = 'mysecretkey123'
+
+
+csrf = CSRFProtect(app)
 #test api key aGFja2luZ2lzYWNyaW1lYXNmc2FmZnNhZnNhZmZzYQ==
 
 
@@ -46,21 +52,38 @@ def signup():
     return render_template('signup.html')  # Show the sign-up page
     
 #this links is for device 1 
-@app.route('/device1/<string:username>/<string:session>', methods=["GET", "POST"])
-def Dashoboard():
+#@app.route('/device1/<string:username>/<string:session>')
+#def Dashoboard(username, session):
+ #   user = {
+  #      "username" : "Aman Singh",
+   #     "image":"static/images/amanSingh.jpg"
+    #}
+#
+ #   devices = [
+  #      {"Dashboard" : "device1",
+    #    "deviceID": "Device1"
+     #   }
+    #]
+   # return render_template('device_dashboard.htm', title='Dashobard', user=user, devices=devices)
+
+@app.route('/device1/<string:username>/<string:session>')
+def Dashoboard(username, session):
+
+    global logged_in
+
+    if username not in logged_in or logged_in[username]['object'].session_id != session:
+        abort(403)
+
     user = {
-        "username" : "Aman Singh",
-        "image":"static/images/amanSingh.jpg"
+        "username": username,
+        "image": "static/images/amanSingh.jpg"
     }
 
     devices = [
-        {"Dashboard" : "device1",
-        "deviceID": "Device1"
-        }
+        {"Dashboard": "device1", "deviceID": "Device1"}
     ]
-    return render_template('device_dashboard.htm', title='Dashobard', user=user, devices=devices)
 
-
+    return render_template('device_dashboard.htm', title='Dashboard', user=user, devices=devices)
 #this link is for the main dashboard of the website
 @app.route('/', methods=['GET', 'POST'])
 def home():
