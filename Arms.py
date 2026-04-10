@@ -27,6 +27,23 @@ def login():
             error = "invalid Username or Passowrd"
        
     return render_template('Login.htm', error=error)
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Save user credentials (hash the password for security)
+        # For example, store it in a database (This is just an example)
+        
+        users = {}
+        users[username] = {'password': password}
+
+        return redirect(url_for('login'))  # Redirect to login after successful sign-up
+    
+    return render_template('signup.html')  # Show the sign-up page
     
 #this links is for device 1 
 @app.route('/device1/<string:username>/<string:session>', methods=["GET", "POST"])
