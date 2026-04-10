@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 logged_in = {}
 api_loggers = {}
-mydb = database.db('aman', '127.0.0.1', 'hacker123', 'ARMS')
+mydb = database.db('aman', '0.0.0.0', 'hacker123', 'ARMS')
 
 #test api key aGFja2luZ2lzYWNyaW1lYXNmc2FmZnNhZnNhZmZzYQ==
 
@@ -335,7 +335,7 @@ def apply_security_headers(response):
     response.headers['X-Content-Type-Options'] = 'nosniff'
     return response
 
-if __name__ == "__main__": app.run(host="0.0.0.0", port = "80", 
+if __name__ == "__main__": app.run(host="0.0.0.0", port = "5000", 
     debug=True)
 
 
