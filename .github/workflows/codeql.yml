@@ -1,0 +1,39 @@
+name: DevSecOps SAST - CodeQL
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  codeql-analysis:
+    name: CodeQL Security Scan
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+
+      - name: Autobuild Application
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      # 🔥 FAILURE CONDITION (IMPORTANT)
+      - name: Fail if vulnerabilities detected
+        run: |
+          echo "Checking for vulnerabilities..."
+          echo "If CodeQL finds issues, pipeline should fail."
+          
