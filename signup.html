@@ -1,0 +1,29 @@
+<!-- templates/signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+    <form action="/signup" method="POST">
+        <h2>Create Your Account</h2>
+
+        <div>
+            <input type="text" name="username" placeholder="Username" required>
+        </div>
+        
+        <div>
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div>
+            <button type="submit">Sign Up</button>
+        </div>
+
+        <div>
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
+    </form>
+</body>
+</html>
